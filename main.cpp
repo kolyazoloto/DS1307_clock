@@ -6,14 +6,6 @@
  */ 
 
 #include "main.h"
-unsigned char fromDecToBinDec(unsigned char b){ //Перевод из десятичного вида в двоично-десятичный
-	unsigned char h_b = b/10;//Десятки
-	unsigned char l_b = b%10;//Единицы
-	return (h_b<<4)+l_b;
-}
-unsigned char fromBinDecToDec(unsigned char b){  //Перевод из двоично-десятичный вида в десятичный
-	return (((b>>4)&0b00001111)*10)+(b&0b00001111);  //Делаем десятки и единицы и соединяем
-}
 
 int main(void)
 {
@@ -69,15 +61,17 @@ int main(void)
 		date = fromBinDecToDec(date);
 		month = fromBinDecToDec(month);
 		year = fromBinDecToDec(year);
-		lcd.print_char(hour/10+'0');
-		lcd.print_char(hour%10+'0');
-		lcd.print_char(':');
-		lcd.print_char(min/10+'0');
-		lcd.print_char(min%10+'0');
-		lcd.print_char(':');
-		lcd.print_char(sec/10+'0');
-		lcd.print_char(sec%10+'0');
-		
+		lcd.print(hour/10+'0');
+		lcd.print(hour%10+'0');
+		lcd.print(':');
+		lcd.print(min/10+'0');
+		lcd.print(min%10+'0');
+		lcd.print(':');
+		lcd.print(sec/10+'0');
+		lcd.print(sec%10+'0');
+		lcd.move_cursor(2,1);
+		lcd.print(date/10+'0');
+		lcd.print(date%10+'0');
 
 		
     }

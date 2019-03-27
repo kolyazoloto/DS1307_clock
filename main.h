@@ -6,5 +6,6 @@
 #include <util/delay.h>
 #include "I2C.h"
 #include "lcd1602.h"
+#include "ds1307.h"
 
 #endif /* MAIN_H_ */
