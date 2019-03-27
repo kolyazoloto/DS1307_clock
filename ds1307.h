@@ -8,13 +8,13 @@ public:
 		i2c_init();
 		//sec,min,hour,day,date,month,year = 0;
 	}
-	void set_datetime(unsigned char year,
-					  unsigned char month,
-					  unsigned char date,
-					  unsigned char day,
-					  unsigned char hour,
+	void set_datetime(unsigned char sec,
 					  unsigned char min,
-					  unsigned char sec)
+					  unsigned char hour,
+					  unsigned char day,
+					  unsigned char date,
+					  unsigned char mounth,
+					  unsigned char year)
 	{
 		i2c_init();
 		i2c_start();

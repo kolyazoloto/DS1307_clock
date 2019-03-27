@@ -10,7 +10,7 @@
 int main(void){
 	LCD_1602_I2C lcd;
 	ds1307 clock;
-	//clock.set_datetime(19,03,27,3,23,28,0);
+	//clock.set_datetime(0,15,23,1,28,10,11);
 
     while (1) 
     {	
