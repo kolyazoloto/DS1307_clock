@@ -6,8 +6,16 @@ class ds1307{
 public:
 	ds1307(){
 		i2c_init();
+		//sec,min,hour,day,date,month,year = 0;
 	}
-	void set_datetime(unsigned char year,month,date,day,hour,min,sec){
+	void set_datetime(unsigned char year,
+					  unsigned char month,
+					  unsigned char date,
+					  unsigned char day,
+					  unsigned char hour,
+					  unsigned char min,
+					  unsigned char sec)
+	{
 		i2c_init();
 		i2c_start();
 		i2c_sendbyte(0b11010000);
@@ -46,6 +54,42 @@ public:
 		month = fromBinDecToDec(month);
 		year = fromBinDecToDec(year);
 	}
+	void get_time(){
+		i2c_start();
+		i2c_sendbyte(0b11010000);// Записываем в какую область памяти переходим
+		i2c_sendbyte(0);//
+		i2c_stop();
+		
+		i2c_start();
+		i2c_sendbyte(0b11010001);// Включаем режим чтения
+		sec = I2C_ReadByte();
+		min = I2C_ReadByte();
+		hour = I2C_ReadLastByte();
+		i2c_stop();
+		
+		sec = fromBinDecToDec(sec);
+		min = fromBinDecToDec(min);
+		hour = fromBinDecToDec(hour);
+	}
+	void get_date(){
+		i2c_start();
+		i2c_sendbyte(0b11010000);// Записываем в какую область памяти переходим
+		i2c_sendbyte(3);//
+		i2c_stop();
+		
+		i2c_start();
+		i2c_sendbyte(0b11010001);// Включаем режим чтения
+		day = I2C_ReadByte();
+		date = I2C_ReadByte();
+		month = I2C_ReadByte();
+		year = I2C_ReadLastByte();
+		i2c_stop();
+		
+		day = fromBinDecToDec(day);
+		date = fromBinDecToDec(date);
+		month = fromBinDecToDec(month);
+		year = fromBinDecToDec(year);
+	}
 	
 	unsigned char sec,min,hour,day,date,month,year;
 private:
@@ -57,6 +101,8 @@ private:
 	unsigned char fromBinDecToDec(unsigned char b){  //Перевод из двоично-десятичный вида в десятичный
 		return (((b>>4)&0b00001111)*10)+(b&0b00001111);  //Делаем десятки и единицы и соединяем
 	}
+
 };
+
 
 #endif /* DS1307_H_ */
